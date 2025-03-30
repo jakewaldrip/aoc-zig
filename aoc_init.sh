@@ -12,6 +12,7 @@ touch "./inputs/${input_file_name}"
 
 echo "const std = @import(\"std\");" >> "$file_name"
 echo "const input = @embedFile(\"./inputs/${input_file_name}\");" >> "$file_name"
+echo "\n" >> "$file_name"
 echo "pub fn main() !void {" >> "$file_name"
 echo "    std.debug.print(\"{s}\", .{input});" >> "$file_name"
 echo "}" >> "$file_name"
