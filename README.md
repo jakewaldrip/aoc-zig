@@ -3,7 +3,7 @@ Advent of Code is a Christmas themed advent calendar of coding challenges run ev
 [Try it yourself](https://adventofcode.com/)
 
 ### Progress
-* [ ] Day 1
+* [X] Day 1
   * [ ] Part 2
 * [ ] Day 2
   * [ ] Part 2

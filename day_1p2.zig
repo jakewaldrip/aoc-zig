@@ -17,19 +17,10 @@ pub fn main() !void {
         index += 1;
     }
 
-    std.mem.sort(i32, &left_list, {}, comptime std.sort.asc(i32));
-    std.mem.sort(i32, &right_list, {}, comptime std.sort.asc(i32));
+    // Iterate through right list, adding frequencies to hash map
+    // Iterate through left list, grabbing freq score for each num from hash map and summing them
 
-    // Optimization:
-    // Vectorize left and right lists, abs the difference, sum them
-    // Leverages SIMD, profile this to see diff
-
-    var sum: u32 = 0;
-    for (left_list, right_list) |left, right| {
-        sum += @abs(left - right);
-    }
-
-    std.debug.print("Answer: {d}\n", .{sum});
+    std.debug.print("Answer: {d}\n", .{1});
 }
 
 fn split_line(line: []const u8) ![2]i32 {
@@ -38,3 +29,4 @@ fn split_line(line: []const u8) ![2]i32 {
     const right = try std.fmt.parseInt(i32, iter.next().?, 10);
     return .{ left, right };
 }
+
