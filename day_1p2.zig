@@ -17,10 +17,29 @@ pub fn main() !void {
         index += 1;
     }
 
-    // Iterate through right list, adding frequencies to hash map
-    // Iterate through left list, grabbing freq score for each num from hash map and summing them
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
+    var map = std.AutoHashMap(i32, i32).init(allocator);
+    defer map.deinit();
 
-    std.debug.print("Answer: {d}\n", .{1});
+    for (right_list) |right| {
+        const right_key = try map.getOrPut(right);
+        if (right_key.found_existing) {
+            right_key.value_ptr.* += 1;
+        } else {
+            right_key.value_ptr.* = 1;
+        }
+    }
+
+    var answer: i32 = 0;
+    for (left_list) |left| {
+        const maybe_value = map.get(left);
+        if (maybe_value) |value| {
+            answer += left * value;
+        }
+    }
+
+    std.debug.print("Answer: {d}\n", .{answer});
 }
 
 fn split_line(line: []const u8) ![2]i32 {
@@ -29,4 +48,3 @@ fn split_line(line: []const u8) ![2]i32 {
     const right = try std.fmt.parseInt(i32, iter.next().?, 10);
     return .{ left, right };
 }
-
